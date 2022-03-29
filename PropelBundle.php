@@ -62,7 +62,7 @@ class PropelBundle extends Bundle
 
         foreach ($config['database']['connections'] as $name => $connection) {
             if (!empty($connection['slaves'])) {
-                $manager = new ConnectionManagerPrimaryReplica($name);
+                $manager = new ConnectionManagerPrimaryReplica();
 
                 // configure the master (write) connection
                 $manager->setWriteConfiguration($connection);
@@ -83,7 +83,7 @@ class PropelBundle extends Bundle
             }
 
             $serviceContainer->setAdapterClass($name, $connection['adapter']);
-            $serviceContainer->setConnectionManager($manager);
+            $serviceContainer->setConnectionManager($name, $manager);
 
             // load database maps
             if(file_exists($config['paths']['loaderScriptDir'].'/loadDatabase.php') && is_readable($config['paths']['loaderScriptDir'].'/loadDatabase.php')) {
