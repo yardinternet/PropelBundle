@@ -62,7 +62,7 @@ class PropelBundle extends Bundle
 
         foreach ($config['database']['connections'] as $name => $connection) {
             if (!empty($connection['slaves'])) {
-                $manager = new ConnectionManagerPrimaryReplica();
+                $manager = new ConnectionManagerPrimaryReplica($name);
 
                 // configure the master (write) connection
                 $manager->setWriteConfiguration($connection);
